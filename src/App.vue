@@ -1,9 +1,19 @@
 <template>
-  <header>
-    <Navbar />
+  <header class="container-fluid">
+    <div class="row">
+      <Navbar />
+    </div>
+    <OffCanvas />
   </header>
-  <main>
-    <router-view />
+  <main class="container-fluid">
+    <div class="row">
+      <div class="col-md-9">
+        <router-view />
+      </div>
+      <div class="col-md-3">
+        <Banner :banner="b" />
+      </div>
+    </div>
   </main>
   <footer>
     <div class="bg-dark text-light text-center p-4">
@@ -13,18 +23,17 @@
 </template>
 
 <script>
-import { computed } from 'vue'
-import { AppState } from './AppState'
-export default {
-  name: 'App',
-  setup() {
-    return {
-      appState: computed(() => AppState)
+  import { computed } from 'vue'
+  import { AppState } from './AppState'
+  export default {
+    name: 'App',
+    setup() {
+      return {
+        appState: computed(() => AppState)
+      }
     }
   }
-}
 </script>
 <style lang="scss">
-@import "./assets/scss/main.scss";
-
+  @import "./assets/scss/main.scss";
 </style>
