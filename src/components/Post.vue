@@ -18,6 +18,9 @@
     <!-- <div class="col-md-11" v-else>
       <p>{{post.body}}</p>
     </div> -->
+    <div>
+      <button class="btn mdi mdi-delete" @click="remove(post.id)"></button>
+    </div>
   </div>
 </template>
 
@@ -27,6 +30,7 @@
   import { computed, reactive, onMounted } from "vue";
   import { postsService } from "../services/PostsService";
   import { logger } from "../utils/Logger";
+  import Pop from '../utils/Pop'
   export default {
     props: { post: { type: Object, required: true } },
     setup(props) {
@@ -37,7 +41,19 @@
           } catch (error) {
             logger.error(error)
           }
+        },
+
+        async remove(id) {
+          try {
+            if (await Pop.confirm()) {
+              await postsService.remove(id)
+            }
+          } catch (error) {
+            logger.error(error)
+            Pop.toast('Failed to Delete', 'error')
+          }
         }
+
       }
     }
   }

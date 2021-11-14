@@ -1,5 +1,6 @@
 <template>
   <div class="home align-items-center justify-content-center">
+    <CreatePost />
     <!-- <div class="home-card p-5 bg-white rounded elevation-3"> -->
     <Thread />
     <!-- </div> -->

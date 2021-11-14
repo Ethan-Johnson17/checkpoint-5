@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-grey darken-30 px-3">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary px-3">
     <span class="navbar-text me-3">
       <button class="btn selectable text-success lighten-30 text-uppercase my-2 my-lg-0" @click="login"
         v-if="!user.isAuthenticated">
@@ -10,12 +10,12 @@
         <div class="selectable" data-bs-target="#offcanvasExample" data-bs-toggle="offcanvas" aria-expanded="false"
           id="authDropdown">
           <img :src="user.picture" alt="user photo" height="40" class="rounded-circle profile-img" />
-          <span class="mx-3 text-success lighten-30">{{ user.name }}</span>
+          <span class="mx-3 text-white">{{ user.name }}</span>
         </div>
         <div class="dropdown-menu p-0 list-group w-100" aria-labelledby="authDropdown">
           <router-link :to="{ name: 'Account' }">
             <div class="list-group-item list-group-item-action hoverable">
-              Manage Account
+              My Profile
             </div>
           </router-link>
           <div class="list-group-item list-group-item-action hoverable text-danger" @click="logout">
@@ -28,7 +28,7 @@
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex align-items-center mx-3">
         <img alt="logo" src="../assets/img/network-5508173_640.png" height="65" />
-        <h1>Network</h1>
+        <h1 class="mx-2">The Network</h1>
       </div>
     </router-link>
     <!-- make sure this is conditionally rendered only if they are logged in -->
@@ -37,13 +37,9 @@
       <span class="navbar-toggler-icon" />
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav me-auto">
-        <li>
-          <router-link :to="{ name: 'About' }" class="btn text-success lighten-30 selectable text-uppercase">
-            About
-          </router-link>
-        </li>
-      </ul>
+      <router-link :to="{ name: 'Search' }" class="btn text-white lighten-30 selectable text-uppercase">
+        Search
+      </router-link>
 
     </div>
   </nav>

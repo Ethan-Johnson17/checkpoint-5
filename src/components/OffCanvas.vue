@@ -8,9 +8,20 @@
   Button with data-bs-target
 </button> -->
   <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-    <div class="offcanvas-header bg-dark">
-      <h5 class="offcanvas-title" id="offcanvasExampleLabel"><img :src="account.picture" alt=""
-          class="rounded-circle profile-img me-2">{{account.name}}</h5>
+    <div class="offcanvas-header bg-grey darken-30">
+      <div class="text-center">
+        <h5 class="offcanvas-title" id="offcanvasExampleLabel"><img :src="account.picture" alt=""
+            class="rounded-circle profile-img me-2">{{account.name}}</h5>
+        <router-link :to="{ name: 'Account' }">
+          <div class="list-group-item-action hoverable">
+            My Profile
+          </div>
+        </router-link>
+        <div class="list-group-item-action hoverable text-danger" @click="logout">
+          <i class="mdi mdi-logout"></i>
+          logout
+        </div>
+      </div>
       <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
@@ -25,9 +36,6 @@
         </ul>
       </div>
     </div>
-    <div class="mb-auto text-end me-2"><i class="mdi mdi-pencil f-24 border rounded border-dark"
-        title="Edit Profile"></i>
-    </div>
   </div>
 </template>
 
@@ -41,12 +49,22 @@
   import { profilesService } from "../services/ProfilesService";
   import { useRoute } from "vue-router";
   import { postsService } from "../services/PostsService";
+  import { AuthService } from '../services/AuthService'
   export default {
     name: "Profile",
     setup() {
       return {
+        user: computed(() => AppState.user),
         account: computed(() => AppState.account),
         profile: computed(() => AppState.profile),
+
+        user: computed(() => AppState.user),
+        async login() {
+          AuthService.loginWithPopup()
+        },
+        async logout() {
+          AuthService.logout({ returnTo: window.location.origin })
+        }
       }
     }
   }
