@@ -10,11 +10,12 @@
       </form>
     </div>
   </div>
-  <div class="mt-2" v-if="pages > 0">
+  <Thread />
+  <div class="mt-2 text-center" v-if="totalPages > 0">
     <button class="btn me-1 text-white selectable" :class="{
         'btn-primary': page === currentPage,
         'btn-dark': page !== currentPage,
-      }" :disabled="page === currentPage" v-for="page in pages" :key="page" @click="getPage(page)">
+      }" :disabled="page === currentPage" v-for="page in totalPages" :key="page" @click="getPage(page)">
       {{ page }}
     </button>
   </div>
@@ -35,6 +36,7 @@
         searchText,
         totalPages: computed(() => AppState.totalPages),
         currentPage: computed(() => AppState.page),
+
         async searchPosts() {
           try {
             await postsService.getAll("?query=" + searchText.value);
@@ -46,7 +48,7 @@
 
         async getPage(page) {
           try {
-            await postsService.findPostBySearchText(searchText.value, page)
+            await postsService.findPostBySearch("?page=", page)
           } catch (error) {
             logger.error(error)
             Pop.toast(error.message, 'error')

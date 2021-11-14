@@ -29,5 +29,10 @@ class PostsService {
     logger.log('delete', res.data)
     AppState.posts = AppState.posts.filter(p => p.id !== id)
   }
+
+  async findPostBySearch(query, page) {
+    const res = await api.get('api/posts?page=' + page)
+    logger.log('page logging', res.data)
+  }
 }
 export const postsService = new PostsService()

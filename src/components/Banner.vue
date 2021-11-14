@@ -1,7 +1,7 @@
 <template>
-  <div class="component my-2" v-if="null">
-    <img :src="banners[0].tall" alt="Tall Banner" class="my-2">
-    <img :src="banners[1].tall" alt="Tall Banner" class="my-2">
+  <div class="component my-2" v-if="!banners[1] == null">
+    <img :src="banners[0].tall" alt="Tall Banner" class="my-2 img-fluid">
+    <img :src="banners[1].tall" alt="Tall Banner" class="my-2 img-fluid">
   </div>
   <div v-else></div>
 

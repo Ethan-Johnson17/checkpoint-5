@@ -1,6 +1,5 @@
 <template>
   <Search />
-  <Thread />
 </template>
 
 

@@ -1,5 +1,5 @@
 <template>
-  <header class="container-fluid">
+  <header class="container-fluid z sticky">
     <div class="row">
       <Navbar />
     </div>
@@ -7,11 +7,11 @@
   </header>
   <main class="container-fluid">
     <div class="row">
-      <div class="col-md-9">
+      <div class="col-md-10">
         <router-view />
       </div>
-      <div class="col-md-3">
-        <Banner :banner="b" />
+      <div class="col-md-2">
+        <Banner :banner="b" class="stickyA" />
       </div>
     </div>
   </main>
@@ -36,4 +36,18 @@
 </script>
 <style lang="scss">
   @import "./assets/scss/main.scss";
+
+  .sticky {
+    position: sticky;
+    top: 0;
+  }
+
+  .stickyA {
+    position: sticky;
+    top: 3;
+  }
+
+  /* .z {
+    z-index: 5000;
+  } */
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary px-3">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary px-3 sticky">
     <span class="navbar-text me-3">
       <button class="btn selectable text-success lighten-30 text-uppercase my-2 my-lg-0" @click="login"
         v-if="!user.isAuthenticated">
@@ -38,7 +38,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
       <router-link :to="{ name: 'Search' }" class="btn text-white lighten-30 selectable text-uppercase">
-        Search
+        <i class="mdi mdi-magnify">Search</i>
       </router-link>
 
     </div>
@@ -97,5 +97,9 @@
   .profile-img {
     height: 50px;
     width: 50px;
+  }
+
+  .sticky {
+    position: sticky;
   }
 </style>
