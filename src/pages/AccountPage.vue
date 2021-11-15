@@ -3,14 +3,20 @@
     <div class="col-md-8">
       <img class="rounded" :src="account.picture" alt="" />
       <h1>Welcome, {{ account.name }}</h1>
+      <div v-if="account.graduated == true"><i class="mdi mdi-school f-20"></i>{{account.class}}</div>
       <p>{{ account.email }}</p>
+      <p>{{account.bio}}</p>
+      <a :href="account.linkedin" target="_blank"><i class="mdi mdi-linkedin f-24" title="linkedIn"></i></a>
+      <a :href="account.github" target="_blank"><i class="mdi mdi-xml f-24" title="github"></i>Github</a>
+      <a :href="account.resume" target="_blank"><i class="mdi mdi-file-account f-24" title="Resume"></i></a>
     </div>
   </div>
-  <button class="btn btn-round border-dark mb-auto text-end me-2" @click="openEdit"><i class="mdi mdi-pencil f-24"
-      title="Edit Account"></i>
+  <button class="btn btn-round border-dark mb-auto text-end me-2" data-bs-target="#accountModal"
+    data-bs-toggle="modal"><i class="mdi mdi-pencil f-24" title="Edit Account"></i>
   </button>
-  <AccountModal :account="account" />
   <Thread />
+
+  <AccountModal />
 </template>
 
 <script>
@@ -21,18 +27,18 @@
   import { postsService } from "../services/PostsService";
   import { useRoute } from "vue-router";
   import { accountService } from "../services/AccountService";
+  import Pop from "../utils/Pop";
   export default {
     name: 'Account',
     setup() {
       const route = useRoute();
-      // NOTE watchEffect runs when ever the data used within the watchEffect( route.params.id ) changes
-      onMounted(async () => {
+      const account = computed(() => AppState.account)
+      watchEffect(async () => {
         try {
-          // NOTE if statement here checks to make sure this only runs on the profile page and not when we leave the profile page
-          if (route.name == "Account") {
+          if (route.name == "Profile") {
             // NOTE params comes from router
             await accountService.getAccount(route.params.id);
-            logger.log('what?', route.param)
+            logger.log('what?', route.params)
             await postsService.getAll("?creatorId=" + route.params.id);
           }
         } catch (error) {
@@ -41,15 +47,16 @@
         }
       });
       return {
-        account: computed(() => AppState.account),
+        account,
+        posts: computed(() => AppState.posts),
 
 
-        openEdit() {
-          // NOTE open the details modal using a method
-          const modalElm = document.getElementById("accountModal");
-          logger.log(modalElm);
-          Modal.getOrCreateInstance(modalElm).toggle();
-        },
+        // openEdit() {
+        //   // NOTE open the details modal using a method
+        //   const modalElm = document.getElementById("accountModal");
+        //   logger.log(modalElm);
+        //   Modal.getOrCreateInstance(modalElm).toggle();
+        // },
       }
     }
   }

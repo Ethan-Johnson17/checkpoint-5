@@ -9,6 +9,7 @@ class BannersService {
     const res = await api.get('api/ads')
     logger.log('get all ads', res.data)
     AppState.banners = res.data.map(b => new Banner(b))
+    // AppState.banners = res.data
   }
 
 }

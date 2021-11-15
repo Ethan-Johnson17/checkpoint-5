@@ -1,13 +1,14 @@
 export class Account {
-  constructor(data) {
-    this.email = data.email
-    this.name = data.name
-    this.picture = data.picture
-    this.bio = data.bio
-    this.github = data.github
-    this.linkedin = data.linkedin
-    this.resume = data.resume
-    this.class = data.class
-    this.graduated = data.graduated || false
+  constructor(accountData = {}) {
+    this.id = accountData.id
+    this.email = accountData.email
+    this.name = accountData.name
+    this.picture = accountData.picture
+    this.bio = accountData.bio
+    this.github = accountData.github
+    this.linkedin = accountData.linkedin
+    this.resume = accountData.resume
+    this.class = accountData.class
+    this.graduated = accountData.graduated || false
   }
 }

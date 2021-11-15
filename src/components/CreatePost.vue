@@ -22,12 +22,12 @@
       </h5>
       <span hidden>
         <div class="col-md-12 mb-2">
-          <label for="" class="form-label">Post Body</label>
+          <label for="Body" class="form-label">Post Body</label>
           <textarea v-model="state.editable.body" required min="5" max="400" type="text" class="form-control"
             aria-describedby="helpId"></textarea>
         </div>
         <div class="col-md-12 mb-2">
-          <label for="" class="form-label">Image url</label>
+          <label for="ImgUrl" class="form-label">Image url</label>
           <input v-model="state.editable.imgUrl" type="url" class="form-control" aria-describedby="helpId" />
         </div>
         <div class="col-12 d-flex justify-content-end">

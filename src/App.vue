@@ -29,7 +29,8 @@
     name: 'App',
     setup() {
       return {
-        appState: computed(() => AppState)
+        appState: computed(() => AppState),
+        banner: computed(() => AppState.banners)
       }
     }
   }
@@ -47,7 +48,7 @@
     top: 3;
   }
 
-  /* .z {
-    z-index: 5000;
-  } */
+  .z {
+    z-index: 50;
+  }
 </style>
