@@ -6,9 +6,12 @@ class PostsService {
 
   async getAll(query = '') {
     const res = await api.get('api/posts' + query)
+    logger.log('newer check', res.data)
     AppState.posts = res.data.posts
     AppState.page = res.data.page
     AppState.totalPages = res.data.totalPages
+    AppState.newer = res.data.newer
+    AppState.older = res.data.older
   }
 
   async likePost(id) {

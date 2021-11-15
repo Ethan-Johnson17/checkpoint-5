@@ -1,11 +1,11 @@
 <template>
   <div class="row">
-    <router-link :to=" '/Profile/' + post.creator.id">
-      <div class="col-md-6 text-start">
+    <div class="col-md-6 text-start">
+      <router-link :to=" '/Profile/' + post.creator.id">
         <h6><img :src="post.creator.picture" alt="" class="profile-img rounded-circle">
           {{post.creator.name}}</h6>
-      </div>
-    </router-link>
+      </router-link>
+    </div>
     <div class="col-md-4">
       <p class="text-grey darken-20">{{post.createdAt}}</p>
     </div>

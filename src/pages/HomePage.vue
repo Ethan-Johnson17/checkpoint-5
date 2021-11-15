@@ -1,20 +1,35 @@
 <template>
-  <div class="home align-items-center justify-content-center">
-    <CreatePost />
+  <div class="home row align-items-center justify-content-center">
+    <div class="col-md-6 ">
+      <CreatePost />
+    </div>
     <!-- <div class="home-card p-5 bg-white rounded elevation-3"> -->
     <Thread />
     <!-- </div> -->
+    <div class="mt-2 text-center d-flex justify-content-evenly" v-if="totalPages > 0">
+      <button class="btn me-1 text-white selectable btn-dark mdi mdi-arrow-left" :disabled="newer == null"
+        @click="getPage(newer)">
+        Newer
+      </button>
+      <button class="btn me-1 text-white selectable btn-dark mdi mdi-arrow-right" :disabled="older == null"
+        @click="getPage(older)">
+        Older
+      </button>
+    </div>
   </div>
 </template>
 
 <script>
-  import { onMounted } from "@vue/runtime-core";
+  import { computed, reactive, onMounted } from "@vue/runtime-core";
   import { logger } from "../utils/Logger";
   import Pop from "../utils/Pop";
   import { postsService } from "../services/PostsService";
+  import { ref } from "@vue/reactivity";
+  import { AppState } from "../AppState";
   export default {
     name: 'Home',
     setup() {
+      const searchText = ref("");
       onMounted(async () => {
         try {
           await postsService.getAll()
@@ -23,6 +38,24 @@
           Pop.toast(error.message, "error");
         }
       })
+
+      return {
+        searchText,
+        older: computed(() => AppState.older),
+        newer: computed(() => AppState.newer),
+        totalPages: computed(() => AppState.totalPages),
+        currentPage: computed(() => AppState.page),
+
+        async getPage(newer, older) {
+          try {
+            logger.log('older', older)
+            await postsService.findPostBySearch("?page=", older)
+          } catch (error) {
+            logger.error(error)
+            Pop.toast(error.message, 'error')
+          }
+        }
+      }
     }
   }
 </script>
