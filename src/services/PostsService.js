@@ -6,7 +6,6 @@ class PostsService {
 
   async getAll(query = '') {
     const res = await api.get('api/posts' + query)
-    logger.log('get all posts', res.data)
     AppState.posts = res.data.posts
     AppState.page = res.data.page
     AppState.totalPages = res.data.totalPages

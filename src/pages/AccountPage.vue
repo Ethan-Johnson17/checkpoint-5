@@ -1,7 +1,7 @@
 <template>
   <div class="about row text-center">
     <div class="col-md-8">
-      <img class="rounded" :src="account.picture" alt="" />
+      <img class="rounded height" :src="account.picture" alt="" />
       <h1>Welcome, {{ account.name }}</h1>
       <div v-if="account.graduated == true"><i class="mdi mdi-school f-20"></i>{{account.class}}</div>
       <p>{{ account.email }}</p>
@@ -38,7 +38,6 @@
           if (route.name == "Profile") {
             // NOTE params comes from router
             await accountService.getAccount(route.params.id);
-            logger.log('what?', route.params)
             await postsService.getAll("?creatorId=" + route.params.id);
           }
         } catch (error) {
@@ -64,6 +63,12 @@
 
 <style scoped>
   img {
-    max-width: 100px;
+    max-width: 500px;
+  }
+
+  .height {
+    height: 400px;
+    width: 500px;
+    object-fit: cover;
   }
 </style>

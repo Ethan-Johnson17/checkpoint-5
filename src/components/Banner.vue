@@ -1,7 +1,7 @@
 <template>
-  <div class="component my-2" v-if="!banners[1] == null">
-    <img :src="banners[0].tall" alt="Tall Banner" class="my-2 img-fluid">
-    <img :src="banners[1].tall" alt="Tall Banner" class="my-2 img-fluid">
+  <div class="component my-2" v-if="banners== null">
+    <img :src="banner1.tall" alt="Tall Banner" class="my-2 img-fluid">
+    <img :src="banner2.tall" alt="Tall Banner" class="my-2 img-fluid">
   </div>
   <div v-else></div>
 
@@ -14,25 +14,26 @@
   import Pop from "../utils/Pop";
   import { bannersService } from "../services/BannersService";
   import { AppState } from "../AppState";
+  import { Banner } from "../models/Banner";
   export default {
-    // props: {
-    //   banner: {
-    //     type: Object,
-    //   }
-    // },
+    props: {
+      banners: {
+        type: Banner,
+      }
+    },
     setup(props) {
+
       onMounted(async () => {
         try {
           await bannersService.getAll()
-          // AppState.banners[1].tall
-          // logger.log('banner?', banner)
         } catch (error) {
           logger.error(error);
           Pop.toast(error.message, "error");
         }
       })
       return {
-        banners: computed(() => AppState.banners)
+        banner1: computed(() => AppState.banner1),
+        banner2: computed(() => AppState.banner2)
       }
     }
   }

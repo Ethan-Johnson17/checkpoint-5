@@ -11,7 +11,7 @@
         <router-view />
       </div>
       <div class="col-md-2">
-        <Banner :banner="b" class="stickyA" />
+        <Banner class="stickyA" />
       </div>
     </div>
   </main>
@@ -30,7 +30,7 @@
     setup() {
       return {
         appState: computed(() => AppState),
-        banner: computed(() => AppState.banners)
+        banners: computed(() => AppState.banners)
       }
     }
   }

@@ -79,7 +79,7 @@
         routeTo() {
           // NOTE close the details modal using a method before we router push
           router.push({
-            name: "Profile",
+            name: "Account",
             params: { id: AppState.account.id },
           });
         },

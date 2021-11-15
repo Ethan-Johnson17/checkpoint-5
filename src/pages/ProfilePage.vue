@@ -1,31 +1,39 @@
 <template>
-  <div class="profile container-fluid text-center">
-    <div class="row">
-      <div class="col-4 bg-primary elevation-2 ms-2">
-        <h1>{{ profile.name }}</h1>
-        <img class="rounded" :src="profile.picture" alt="" />
-        <p>{{ profile.email }}</p>
-      </div>
+  <div class="about row text-center">
+    <div class="col-md-8">
+      <img class="rounded" :src="profile.picture" alt="" />
+      <h1>{{ profile.name }}</h1>
+      <div v-if="profile.graduated == true"><i class="mdi mdi-school f-20"></i>{{profile.class}}</div>
+      <p>{{ profile.email }}</p>
+      <p>{{profile.bio}}</p>
+      <a :href="profile.linkedin" target="_blank"><i class="mdi mdi-linkedin f-24" title="linkedIn"></i></a>
+      <a :href="profile.github" target="_blank"><i class="mdi mdi-xml f-24" title="github"></i>Github</a>
+      <a :href="profile.resume" target="_blank"><i class="mdi mdi-file-account f-24" title="Resume"></i></a>
+    </div>
+  </div>
+  <Thread />
+
+  <AccountModal />
 </template>
 
-
 <script>
-  import { computed } from "vue";
-  import { AppState } from "../AppState";
-  import { onMounted, watchEffect } from "@vue/runtime-core";
+  import { computed, onMounted, watchEffect } from 'vue'
+  import { AppState } from '../AppState'
   import { logger } from "../utils/Logger";
-  import Pop from "../utils/Pop";
-  import { profilesService } from "../services/ProfileService";
+  import { Modal } from "bootstrap";
+  import { postsService } from "../services/PostsService";
   import { useRoute } from "vue-router";
-  import { projectsService } from "../services/ProjectsService";
+  import { profilesService } from "../services/ProfilesService";
+  import Pop from "../utils/Pop";
   export default {
-    name: "Profile",
+    name: 'Profile',
     setup() {
       const route = useRoute();
+      const profile = computed(() => AppState.profile)
       watchEffect(async () => {
         try {
-          // NOTE if statement here checks to make sure this only runs on the profile page and not when we leave the profile page
           if (route.name == "Profile") {
+            // NOTE params comes from router
             await profilesService.getProfile(route.params.id);
             await postsService.getAll("?creatorId=" + route.params.id);
           }
@@ -35,14 +43,23 @@
         }
       });
       return {
-        account: computed(() => AppState.account),
-        profile: computed(() => AppState.profile),
+        profile,
+        posts: computed(() => AppState.posts),
+
+
+        // openEdit() {
+        //   // NOTE open the details modal using a method
+        //   const modalElm = document.getElementById("accountModal");
+        //   logger.log(modalElm);
+        //   Modal.getOrCreateInstance(modalElm).toggle();
+        // },
       }
     }
   }
 </script>
 
-
-<style lang="scss" scoped>
-
+<style scoped>
+  img {
+    max-width: 100px;
+  }
 </style>

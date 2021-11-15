@@ -8,8 +8,10 @@ class BannersService {
   async getAll() {
     const res = await api.get('api/ads')
     logger.log('get all ads', res.data)
-    AppState.banners = res.data.map(b => new Banner(b))
-    // AppState.banners = res.data
+    AppState.banner1 = res.data[0]
+    AppState.banner2 = res.data[1]
+    // AppState.banners = res.data.map(b => new Banner(b))
+    logger.log('appstate ads', AppState.banners)
   }
 
 }
