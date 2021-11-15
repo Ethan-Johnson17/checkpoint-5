@@ -11,14 +11,14 @@
     </div>
   </div>
   <Thread />
-  <div class="mt-2 text-center" v-if="totalPages > 0">
+  <!-- <div class="mt-2 text-center" v-if="totalPages > 0">
     <button class="btn me-1 text-white selectable" :class="{
         'btn-primary': page === currentPage,
         'btn-dark': page !== currentPage,
       }" :disabled="page === currentPage" v-for="page in totalPages" :key="page" @click="getPage(page)">
       {{ page }}
     </button>
-  </div>
+  </div> -->
 </template>
 
 

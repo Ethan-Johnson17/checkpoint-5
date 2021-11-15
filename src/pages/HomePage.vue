@@ -6,16 +6,16 @@
     <!-- <div class="home-card p-5 bg-white rounded elevation-3"> -->
     <Thread />
     <!-- </div> -->
-    <div class="mt-2 text-center d-flex justify-content-evenly" v-if="totalPages > 0">
+    <!-- <div class="mt-2 text-center d-flex justify-content-evenly" v-if="totalPages > 0">
       <button class="btn me-1 text-white selectable btn-dark mdi mdi-arrow-left" :disabled="newer == null"
-        @click="getPage(newer)">
+        @click="getNext(newer)">
         Newer
       </button>
       <button class="btn me-1 text-white selectable btn-dark mdi mdi-arrow-right" :disabled="older == null"
-        @click="getPage(older)">
+        @click="getNext(older)">
         Older
       </button>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -30,6 +30,8 @@
     name: 'Home',
     setup() {
       const searchText = ref("");
+      let olderPage = AppState.older;
+
       onMounted(async () => {
         try {
           await postsService.getAll()
@@ -41,15 +43,17 @@
 
       return {
         searchText,
+        // olderPage,
         older: computed(() => AppState.older),
         newer: computed(() => AppState.newer),
         totalPages: computed(() => AppState.totalPages),
         currentPage: computed(() => AppState.page),
 
-        async getPage(newer, older) {
+        async getNext(page) {
           try {
-            logger.log('older', older)
-            await postsService.findPostBySearch("?page=", older)
+            let nextPage = page.split('=').map((url) => url.trim())
+            let np = nextPage[1]
+            await postsService.findPostBySearch("?page=", np)
           } catch (error) {
             logger.error(error)
             Pop.toast(error.message, 'error')

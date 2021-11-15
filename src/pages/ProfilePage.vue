@@ -1,14 +1,19 @@
 <template>
-  <div class="about row text-center">
-    <div class="col-md-8">
+  <div class="about row  justify-content-center mt-4">
+    <div class="col-md-5 text-center">
       <img class="rounded" :src="profile.picture" alt="" />
       <h1>{{ profile.name }}</h1>
       <div v-if="profile.graduated == true"><i class="mdi mdi-school f-20"></i>{{profile.class}}</div>
       <p>{{ profile.email }}</p>
       <p>{{profile.bio}}</p>
       <a :href="profile.linkedin" target="_blank"><i class="mdi mdi-linkedin f-24" title="linkedIn"></i></a>
-      <a :href="profile.github" target="_blank"><i class="mdi mdi-xml f-24" title="github"></i>Github</a>
+      <a :href="profile.github" target="_blank" class="mx-3"><i class="mdi mdi-xml f-24" title="github"></i>Github</a>
       <a :href="profile.resume" target="_blank"><i class="mdi mdi-file-account f-24" title="Resume"></i></a>
+    </div>
+  </div>
+  <div class="row justify-content-center mt-2">
+    <div class="col-md-6 mt-4">
+      <h5>{{profile.name}}'s posts:</h5>
     </div>
   </div>
   <Thread />
@@ -60,6 +65,7 @@
 
 <style scoped>
   img {
-    max-width: 100px;
+    max-width: 400px;
+    object-fit: cover;
   }
 </style>
